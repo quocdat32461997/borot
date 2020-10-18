@@ -1,2 +1,2 @@
 # borot
-Chatbot system
+borot - a chatbot system
