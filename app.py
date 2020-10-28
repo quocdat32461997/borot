@@ -8,22 +8,22 @@ from flask import Flask, request, jsonify
 import boto3
 import logging
 
-from lib import initialize
+from lib import configs
+from lib.controllers import  question_answer
 
-# initialize Flask app
-app = Flask(__name__)
+# initialize Flask app and DB
+USER = None
 
 def main():
-	connection = initialize()
-	app.run()
+	APP.run(debug = True)
 
-@app.route('/')
-def home():
-	return 'Hellow, this is Borot'
+@APP.route('/')
+def hi():
+	return 'Hello, this is Borot. \n Did we meet before? If not, what is your name?'
 
-@app.route('/ask', methods = ['POST'])
+@APP.route('/ask', methods = ['POST'])
 def ask():
-	return jsonify({'response' : 'Hi from Borot'})
+	return question_answer(USER, request.form('query'))
 
 if __name__ == '__main__':
 	main()
