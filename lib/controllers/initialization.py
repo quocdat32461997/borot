@@ -4,23 +4,30 @@ initialization.py - module for Database connections
 
 # import dependencies
 import os
-import pymysql
+import mysql
+from flask_sqlalchemy import SQLAlchemy
 
 from lib import configs
 from lib.borot_ai import *
 
-def local_db():
+def _local_db():
 	"""
-	local_db - function to initialize connections to local MySQL
-	Inputs: None
+	_local_db - function to initialize connections to local MySQL
+	Inputs: 
+		- app : Flask aap
 	Outputs: None
 	"""
 
-	connetion = pymysql.connect(host = configs.HOST, user = os.environ['LOCAL_DB_USER'], passwore = os.environ['LOCAL_DB_PASSWORD'], db = configs.DB)
+	# mysql connector
+	connection = mysql.connector.connect(
+		user = os.environ['LOCAL_DB_USER'],
+		password = os.environ['LOCAL_DB_PASSOWRD'],
+		host = configs.HOST,
+		database = configs.DB)
+
 	return connection
 
-
-def aws_db():
+def _aws_db():
 	"""
 	aws_db - function to initalize connections to AWS RDS
 	Inputs: None
@@ -28,15 +35,20 @@ def aws_db():
 	"""
 	return None
 
-def main(mode = 'local'):
+def connect2db(mode = 'local'):
+	"""
+	connect2db - function to initialize connectino to db
+	"""
 	# connect to AWS RDS
 	try:
 		# local db
 		if mode == 'local':
 			print("Connected to local MySQL")
-			return local_db()
+			return _local_db()
 		# aws db
 		else:
 			print("Connected to AWS DS")
+			return _aws_db()
 	except Exception as error:
 			print(error)
+

@@ -5,12 +5,13 @@ execution.py - module for read/write execution
 # import dependencies
 import os
 
-
-def ask(input)
+def question_answer(user, input):
 	"""
 	ask - function to provoke Borot agent given text input
 	Inputs:
-		- input - str
+		- user : User class object
+			User class object to store conversation logs
+		- input : str
 			Input text (question/query)
 	Outputs:
 		- output : str
@@ -20,3 +21,10 @@ def ask(input)
 
 
 	return output
+
+
+def _question(input):
+	return none
+
+def _answer(input):
+	return input

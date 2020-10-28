@@ -1,5 +1,5 @@
 # controllers
 
-from .initialization import main as initialize
+from .initialization import connect2db
 from .routing import *
 from .execution import *
