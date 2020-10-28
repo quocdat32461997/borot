@@ -18,12 +18,11 @@ def main():
 	app.run()
 
 @app.route('/')
-def hi():
+def home():
 	return 'Hellow, this is Borot'
-	app.run()
 
-@app.route('/heyborot', methods = ['POST'])
-def hey_borot():
+@app.route('/ask', methods = ['POST'])
+def ask():
 	return jsonify({'response' : 'Hi from Borot'})
 
 if __name__ == '__main__':

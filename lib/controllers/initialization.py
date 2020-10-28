@@ -7,6 +7,7 @@ import os
 import pymysql
 
 from lib import configs
+from lib.borot_ai import *
 
 def local_db():
 	"""
