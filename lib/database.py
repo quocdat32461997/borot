@@ -6,7 +6,7 @@ database.py - module to initialize MySQL database.
 import os
 import mysql.connector
 
-import configs
+from lib import configs
 
 def _initialize_db(cursor):
 	"""
@@ -16,7 +16,11 @@ def _initialize_db(cursor):
 	Outputs: None
 	"""
 
-	cursor.execute('CREATE DATABASE {}'.format(configs.DB))
+	try:
+		query = 'CREATE DATABASE {}'.format(configs.DB)
+		cursor.execute(query)
+	except:
+		print("Database {} exists".format(configs.DB))
 	return None
 
 def _initialize_tables(cursor):
@@ -28,15 +32,15 @@ def _initialize_tables(cursor):
 	"""
 
 	# initialize User table
-	query = 'CREATE TABLE [IF NOT EXISTS] users (user_id INT(255),first_name VARCHAR(100),last_name VARCHAR(100),email VARCHAR(100))'
+	query = 'CREATE TABLE IF NOT EXISTS users (user_id INT(255),first_name VARCHAR(100),last_name VARCHAR(100),email VARCHAR(100))'
 	cursor.execute(query)
 
 	# initialize Conversation table
-	query = 'CREATE TABLE [IF NOT EXISTS] conversations (user_id INT(255),log_id INT(255),query VARCHAR(MAX),response VARCHAR(MAX),status INT(1))'
+	query = "CREATE TABLE IF NOT EXISTS conversations (user_id INT(255),log_id INT(255),query TEXT(65535),response TEXT(65535),status INT(1))"
 	cursor.execute(query)
 
 	# initialize Information table
-	query = 'CREATE TABLE [IF NOT EXISTS] information (id INT(255),content VARCHAR(MAX))'
+	query = 'CREATE TABLE IF NOT EXISTS information (id INT(255),content TEXT(65535))'
 	cursor.execute(query)
 
 	return None
@@ -51,12 +55,20 @@ def initialize_db():
 	# initialize MySQL connection
 	db = mysql.connector.connect(
 		user = os.environ[configs.USER],
-		password = os.envir[configs.PASSWORD],
+		password = os.environ[configs.PASSWORD],
 		host = configs.HOST)
 	cursor = db.cursor()
 
 	# initialize database
 	_initialize_db(cursor)
+
+	# reinitialize MySQL connection after creating database
+	db  = mysql.connector.connect(
+		user = os.environ[configs.USER],
+		password = os.environ[configs.PASSWORD],
+		host = configs.HOST,
+		database = configs.DB)
+	cursor = db.cursor()
 
 	# initialize tables
 	_initialize_tables(cursor)
