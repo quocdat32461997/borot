@@ -12,11 +12,13 @@ def ner(input):
 		- input: str
 			Raw query input
 	Outputs:
-		- output: dict
+		- outputs: dict
 			Name entities
 	"""
 
-	return None
+	output = {} # output dict of entities : values
+
+	return outputs
 
 def intent_detection(input):
 	"""
