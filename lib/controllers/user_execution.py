@@ -43,7 +43,7 @@ def _add_user(db, user):
 	"""
 	_add_user - function to add a new user to databse
 	Inputs:
-		- db : mysql connection
+		- db : mysql cursor
 		- user : User class object
 	Outputs: None
 	"""
@@ -52,10 +52,13 @@ def _add_user(db, user):
 	cursor = db.cursor()
 
 	# SQL execution
-	query = 'INSERT INTO user (first_name, last_name, email) VALUES (%s, %s, %s)'
-	values = (first_name, last_name, email)
+	query = 'INSERT INTO users (first_name, last_name, email) VALUES (%s, %s, %s)'
+	values = (user.first_name, user.last_name, user.email)
 	cursor.execute(query, values)
+
+	# make permanent changes
 	db.commit()
+	cursor.reset()
 
 def _existing_account(db, user):
 	"""
@@ -66,7 +69,7 @@ def _existing_account(db, user):
 	Outputs:
 		- existed : boolean
 			Existing/Non-existing flag	
-		- user_info : int
+		- user_id : int
 			User_id if account existed
 	"""
 
@@ -74,10 +77,15 @@ def _existing_account(db, user):
 	cursor = db.cursor()
 
 	# SQl execution
-	query = 'SELECT EXISTS(SELECT * FROM users WHERE email={})'.format(user.email)
+	query = 'SELECT EXISTS(SELECT * FROM users WHERE users.email=\'{}\')'.format(user.email)
 	cursor.execute(query)
+
+	user_id = cursor.fetchall()[0][-1]
 	
+	# reset db cursor
+	cursor.reset()
+
 	if cursor.rowcount == 1:
-		return True, cursor.fetchall()[0][-1]
+		return True, user_id
 	else:
-		return False
+		return False, None

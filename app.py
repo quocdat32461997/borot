@@ -27,10 +27,11 @@ def hi():
 
 @app.route('/user', methods = ['POST'])
 def user():
-	user = parse_user(
+	_ = parse_user(
 		first_name = 'dat', #request.form('first_name'),
 		last_name = 'ngo', #request.form('last_name'),
 		email = 'gmail') #request.form('email'))
+	return 'Welcome to Borot'
 
 @app.route('/ask', methods = ['POST'])
 def ask():
