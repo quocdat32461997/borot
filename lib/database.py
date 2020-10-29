@@ -28,31 +28,20 @@ def _initialize_tables(cursor):
 	"""
 
 	# initialize User table
-	query = 'CREATE TABLE [IF NOT EXISTS] users (
-		user_id INT(255),
-		first_name VARCHAR(100),
-		last_name VARCHAR(100),
-		email VARCHAR(100))'
+	query = 'CREATE TABLE [IF NOT EXISTS] users (user_id INT(255),first_name VARCHAR(100),last_name VARCHAR(100),email VARCHAR(100))'
 	cursor.execute(query)
 
 	# initialize Conversation table
-	query = 'CREATE TABLE [IF NOT EXISTS] conversations (
-		user_id INT(255),
-		log_id INT(255),
-		query VARCHAR(MAX),
-		response VARCHAR(MAX),
-		status INT(1))'
+	query = 'CREATE TABLE [IF NOT EXISTS] conversations (user_id INT(255),log_id INT(255),query VARCHAR(MAX),response VARCHAR(MAX),status INT(1))'
 	cursor.execute(query)
 
 	# initialize Information table
-	query = 'CREATE TABLE [IF NOT EXISTS] information (
-		id INT(255),
-		content VARCHAR(MAX))'
+	query = 'CREATE TABLE [IF NOT EXISTS] information (id INT(255),content VARCHAR(MAX))'
 	cursor.execute(query)
 
 	return None
 
-def initialize_db()
+def initialize_db():
 	"""
 	initialize_db - function to initalize database and tables in MySQL
 	Inputs: None
