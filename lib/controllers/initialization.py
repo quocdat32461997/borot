@@ -4,7 +4,7 @@ initialization.py - module for Database connections
 
 # import dependencies
 import os
-import mysql
+import mysql.connector
 from flask_sqlalchemy import SQLAlchemy
 
 from lib import configs
@@ -15,17 +15,38 @@ def _local_db():
 	_local_db - function to initialize connections to local MySQL
 	Inputs: 
 		- app : Flask aap
-	Outputs: None
+	Outputs: 
+		- db : MySQL connection
 	"""
 
-	# mysql connector
-	connection = mysql.connector.connect(
-		user = os.environ['LOCAL_DB_USER'],
-		password = os.environ['LOCAL_DB_PASSOWRD'],
-		host = configs.HOST,
-		database = configs.DB)
+	# initialize mysql connection
+	try:
+		db = mysql.connector.connect(
+			user = os.environ['LOCAL_DB_USER'],
+			password = os.environ['LOCAL_DB_PASSWORD'],
+			host = configs.HOST,
+			database = configs.DB)
+		print(db)
+		
+		print("Connected to local MySQL") 
+		return db
+	except:
+		try:
+			# initialize db connection without databse
+			db = mysql.connector.connect(
+				user = os.environ['LOCAL_DB_USER'],
+				password = os.environ['LOCAL_DB_PASSWORD'],
+				host = configs.HOST)
+			# create databse
+			cursor = db.cursor()
+			cursor.execute('CREATE DATABASE {}'.format(configs.DB))
+			db.commit()
 
-	return connection
+			print("Connected to local MySQL") 
+			return db
+
+		except Exception as error:
+			print(error)
 
 def _aws_db():
 	"""
@@ -35,15 +56,14 @@ def _aws_db():
 	"""
 	return None
 
-def connect2db(mode = 'local'):
+def connect2db():
 	"""
 	connect2db - function to initialize connectino to db
 	"""
 	# connect to AWS RDS
 	try:
 		# local db
-		if mode == 'local':
-			print("Connected to local MySQL")
+		if configs.HOST == 'localhost':
 			return _local_db()
 		# aws db
 		else:
