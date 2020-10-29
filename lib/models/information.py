@@ -7,8 +7,16 @@ class Info:
 	Info - class to store retreived Info from DB
 	"""
 
-	def __init__(self, name = 'Info'):
-		self.name = name
+	def __init__(self, ids, texts, name = 'Info'):
+		"""
+		Infor class constructor
+		Inputs:
+			- ids : list of integers
+				Unique ids for info pieces
+			- texts : list of texts
+				Infor texts
+		"""
 
-	def __call__(self):	
-		return None
+		self.ids = ids
+		self.texts = texts
+		self.name = name
