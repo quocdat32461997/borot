@@ -5,7 +5,6 @@ initialization.py - module for Database connections
 # import dependencies
 import os
 import mysql.connector
-from flask_sqlalchemy import SQLAlchemy
 
 from lib import configs
 from lib.borot_ai import *
@@ -26,27 +25,11 @@ def _local_db():
 			password = os.environ['LOCAL_DB_PASSWORD'],
 			host = configs.HOST,
 			database = configs.DB)
-		print(db)
 		
 		print("Connected to local MySQL") 
 		return db
 	except:
-		try:
-			# initialize db connection without databse
-			db = mysql.connector.connect(
-				user = os.environ['LOCAL_DB_USER'],
-				password = os.environ['LOCAL_DB_PASSWORD'],
-				host = configs.HOST)
-			# create databse
-			cursor = db.cursor()
-			cursor.execute('CREATE DATABASE {}'.format(configs.DB))
-			db.commit()
-
-			print("Connected to local MySQL") 
-			return db
-
-		except Exception as error:
-			print(error)
+		print(error)
 
 def _aws_db():
 	"""
