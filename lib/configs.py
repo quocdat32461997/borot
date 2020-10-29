@@ -6,6 +6,8 @@ configs.py - module to store server configurations
 import os
 import json
 
-# paramaters
+# Database paramaters
 DB = 'borot'
 HOST = 'localhost'
+USER = LOCAL_DB_USER
+PASSWORD = LOCAL_DB_PASSWORD
