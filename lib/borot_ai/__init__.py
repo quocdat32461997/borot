@@ -1,4 +1,3 @@
 # borot_ai
 
-from .ner import *
-from .nlu import *
+from .nlu import ner, intent_detection
