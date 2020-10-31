@@ -8,11 +8,12 @@ from flask import Flask, request, jsonify
 import boto3
 import logging
 
-from lib import configs, initialize_db
+from lib import configs, initialize_db, NER
 from lib.controllers import parse_user, question_answer
 
 # initialize Flask app and DB
 app = Flask(__name__)
+user = None
 
 def main():
 	# initialize database
@@ -27,15 +28,16 @@ def hi():
 
 @app.route('/user', methods = ['POST'])
 def user():
-	_ = parse_user(
-		first_name = 'dat', #request.form('first_name'),
-		last_name = 'ngo', #request.form('last_name'),
-		email = 'gmail') #request.form('email'))
+	data = request.json
+	user = parse_user(
+		first_name = ['first_name'],
+		last_name = data['last_name'],
+		email = data['email'])
 	return 'Welcome to Borot'
 
 @app.route('/ask', methods = ['POST'])
 def ask():
-	return question_answer(USER, request.form('query'))
+	return question_answer(user, request.json['query'])
 
 if __name__ == '__main__':
 	main()
