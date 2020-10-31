@@ -8,7 +8,7 @@ from flask import Flask, request, jsonify
 import boto3
 import logging
 
-from lib import configs, initialize_db
+from lib import configs, initialize_db, NER
 from lib.controllers import parse_user, question_answer
 
 # initialize Flask app and DB
@@ -37,7 +37,7 @@ def user():
 
 @app.route('/ask', methods = ['POST'])
 def ask():
-	return question_answer(user, request.form('query'))
+	return question_answer(user, request.json['query'])
 
 if __name__ == '__main__':
 	main()
