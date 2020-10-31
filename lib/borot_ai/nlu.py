@@ -5,10 +5,11 @@ nlu.py - module for Natuarl Language Understanding tasks
 # import dependencies
 import os
 
-def ner(input):
+def ner(user, input):
 	"""
 	ner - fucntion for Name Entity Recognition
 	Inputs:
+		- user: User class object
 		- input: str
 			Raw query input
 	Outputs:
@@ -20,10 +21,11 @@ def ner(input):
 
 	return outputs
 
-def intent_detection(input):
+def intent_detection(user, input):
 	"""
 	intent_detection - function for Intent Detection
 	Inputs:
+		- user: User class object
 		- input: str
 			Raw query input
 	Outputs:
@@ -32,3 +34,18 @@ def intent_detection(input):
 	"""
 
 	return None
+
+def generate_response(user, input):
+	"""
+	generate_response - function to generate response
+	Inputs:
+		- user: User class object
+		- input: str
+			Raw query input
+	Outputs:
+		- output: str
+			Generated request
+	"""
+
+	output = None
+	return output
