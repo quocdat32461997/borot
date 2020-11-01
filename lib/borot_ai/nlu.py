@@ -1,6 +1,5 @@
 """
-nlu.py - module for Natuarl Language Understanding tasks
-"""
+nlu.py - module for Natuarl Language Understanding tasks """
 
 # import dependencies
 import os
@@ -17,20 +16,14 @@ def ner(ner, input):
 		- input: str
 			Raw query input
 	Outputs:
-		- outputs: dict
+		- output: dict
 			Name entities
 	"""
 
-	# preprocess to accepted NER model input
-	input = ner.preprocess(input)
-
 	# model predictions
-	predictions = ner.predict(input)
+	output = ner.predict(input)
 	
-	# convert to tags
-	tags = ner.pred_to_tags(predictions)
-
-	return tags
+	return output
 
 def intent_detection(ic, input):
 	"""
@@ -43,31 +36,69 @@ def intent_detection(ic, input):
 		- output: str
 			Detected intent
 	"""
+	print(ic)
 
 	output = ic.predict(input)
 
 	return output
 
-def response_generator(user, input):
+def response_generator(intent, tags, tokens):
 	"""
-	response_generator - function to generate response
+	response_generator - function to generate response (searching in this version)
 	Inputs:
-		- user: User class object
-		- input: str
-			Raw query input
+		- intent : str
+			Intent
+		- tags : list
+			List of tags
+		- tokens : list
+			List of tokens
 	Outputs:
 		- output: str
 			Generated request
 	"""
 
-	output = None
+	entities = {}
+	for idx in range(len(tags)):
+		if tags[idx] != 'o':
+			tag = tags[idx][2:]
+
+			if not tag in entities:
+				entities[tag] = [tokens[idx]]
+
+			else:
+				entities[tag].append(tokens[idx])
+
+	output = intent 
+	print(entities)
+	for tag, items in entities.items():
+		output = output + ' ' + tag + ':' + ' '.join(items)
+
 	return output
 
 def initialize_borot_ai():
+	"""
+	initialize_borot_ai - function to initalize Borot-AI models, NER tags and intents
+	Inputs: None
+	Outputs:
+		- ner : NameEntityRecognizer class object
+		- ic : IntentClassifier class object
+		- tags : list of NER tags
+		- intents : list of intents
+		- commands : dict of intent-action
+	"""
 	# initialize BiLSTM-CRF model
 	ner = NER(configs.BILSTM_CRF_MODEL, tag_table = configs.BILSTM_CRF_TAG_PATH, word_table = configs.BILSTM_CRF_WORD_PATH)
 
 
 	# initialize intent classifier
 	ic = IC(model = configs.IC_MODEL, intents = configs.IC_INTENT_PATH, vectorizer = configs.IC_VECTORIZER_PATH)
-	return ner, ic
+
+	# read ner-tag list
+	with open(configs.BILSTM_CRF_TAG_PATH) as file:
+		tags = file.read().split('\n')
+
+	# read intent list
+	with open(configs.IC_INTENT_PATH) as file:
+		intents = file.read().split('\n')
+
+	return ner, ic, tags, intents

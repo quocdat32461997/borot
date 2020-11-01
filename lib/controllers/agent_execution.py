@@ -49,3 +49,24 @@ def question_answer(USERobj, NERobj, ICobj, query, intents, tags):
 	db.close()
 
 	return intent, text, tags
+
+def search_info(input, db):
+	"""
+	search_info - function to search info in Knowledge base given input tokens
+	Inputs:
+		- input : list of str
+			List of key tokens
+	Outputs:
+		- output : TBD
+	"""
+
+	# initialize cursor
+	cursor = db.cursor()
+
+	# execute search
+	query = None
+	values = None
+	cursor.execute(query, values)
+
+	# reset cursor
+	cursor.reset()

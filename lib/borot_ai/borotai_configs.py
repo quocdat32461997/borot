@@ -20,3 +20,6 @@ IC = os.path.join(BOROT_AI_PATH, 'intent_classifier')
 IC_MODEL = os.path.join(IC, 'intent_classifier.sav')
 IC_VECTORIZER_PATH = os.path.join(IC, 'tfidf_vectorizer.pickle')
 IC_INTENT_PATH = os.path.join(IC, 'intent_list.txt')
+
+# intent-action path
+INTENT_ACTION = os.path.join(BOROT_AI_PATH, 'intent_actions_list.txt')

@@ -40,7 +40,7 @@ def _initialize_tables(cursor):
 	cursor.execute(query)
 
 	# initialize Information table
-	query = 'CREATE TABLE IF NOT EXISTS information (id INT(255),content TEXT(65535))'
+	query = 'CREATE TABLE IF NOT EXISTS information (id INT(255),, content TEXT(65535))'
 	cursor.execute(query)
 
 	return None
