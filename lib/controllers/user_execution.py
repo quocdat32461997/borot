@@ -52,6 +52,7 @@ def _add_user(db, user):
 	cursor = db.cursor()
 
 	# SQL execution
+	print(user.first_name, user.last_name, user.email)
 	query = 'INSERT INTO users (first_name, last_name, email) VALUES (%s, %s, %s)'
 	values = (user.first_name, user.last_name, user.email)
 	cursor.execute(query, values)
