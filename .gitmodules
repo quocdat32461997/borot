@@ -4,3 +4,6 @@
 [submodule "lib/borot_ai/BiLSTM_CRF"]
 	path = lib/borot_ai/BiLSTM_CRF
 	url = https://github.com/quocdat32461997/BiLSTM-CRF.git
+[submodule "lib/borot_ai/intent_classifier"]
+	path = lib/borot_ai/intent_classifier
+	url = git@github.com:quocdat32461997/intent_classifier.git
