@@ -65,7 +65,9 @@ def response_generator(user, input):
 
 def initialize_borot_ai():
 	# initialize BiLSTM-CRF model
-	ner = NER(configs.BILSTM_CRF_MODEL, tag_table = configs.BILSTM_CRF_TAG_PATH, word_table = configs.BISLTM_CRF_WORD_PATH)
+	ner = NER(configs.BILSTM_CRF_MODEL, tag_table = configs.BILSTM_CRF_TAG_PATH, word_table = configs.BILSTM_CRF_WORD_PATH)
 
 
-	return ner
+	# initialize intent classifier
+	ic = IC(model = configs.IC_MODEL, intents = configs.IC_INTENT_PATH, vectorizer = configs.IC_VECTORIZER_PATH)
+	return ner, ic

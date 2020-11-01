@@ -6,11 +6,11 @@ borotai_configs.py - module to store configurations for Borot AI modules
 import os
 
 # retrieve AI path
-BOROT_AI_PATH = os.path.abspath(__file__)
+BOROT_AI_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # BiLSTM_CRF paths
 BILSTM_CRF = os.path.join(BOROT_AI_PATH, 'BiLSTM_CRF')
-BILSTM_CRF_MODEL = os.path.join(BILSTM_CRF, 'bilstm_crf')
+BILSTM_CRF_MODEL = os.path.join(BILSTM_CRF, 'bilstm_crf_model')
 BILSTM_CRF_MODEL_AWS = ''
 BILSTM_CRF_WORD_PATH = os.path.join(BILSTM_CRF, 'data', 'words.txt')
 BILSTM_CRF_TAG_PATH = os.path.join(BILSTM_CRF, 'data', 'tags.txt')
