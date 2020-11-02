@@ -12,8 +12,8 @@ BOROT_AI_PATH = os.path.dirname(os.path.abspath(__file__))
 BILSTM_CRF = os.path.join(BOROT_AI_PATH, 'BiLSTM_CRF')
 BILSTM_CRF_MODEL = os.path.join(BILSTM_CRF, 'bilstm_crf_model')
 BILSTM_CRF_MODEL_AWS = ''
-BILSTM_CRF_WORD_PATH = os.path.join(BILSTM_CRF, 'data', 'words.txt')
-BILSTM_CRF_TAG_PATH = os.path.join(BILSTM_CRF, 'data', 'tags.txt')
+BILSTM_CRF_WORD_PATH = os.path.join(BILSTM_CRF, 'words.txt')
+BILSTM_CRF_TAG_PATH = os.path.join(BILSTM_CRF, 'tags.txt')
 
 # intent_classifier paths
 IC = os.path.join(BOROT_AI_PATH, 'intent_classifier')

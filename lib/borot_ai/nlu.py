@@ -53,8 +53,8 @@ def response_generator(intent, tags, tokens):
 		- tokens : list
 			List of tokens
 	Outputs:
-		- output: str
-			Generated request
+		- _: dict
+			Dictionary of Intent and Entities
 	"""
 
 	entities = {}
@@ -67,13 +67,9 @@ def response_generator(intent, tags, tokens):
 
 			else:
 				entities[tag].append(tokens[idx])
+	print(entities, tags, tokens)
 
-	output = intent 
-	print(entities)
-	for tag, items in entities.items():
-		output = output + ' ' + tag + ':' + ' '.join(items)
-
-	return output
+	return {'Intent' : intent, 'Entities' : entities}
 
 def initialize_borot_ai():
 	"""
