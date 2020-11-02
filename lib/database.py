@@ -4,9 +4,11 @@ database.py - module to initialize MySQL database.
 
 # import dependencies
 import os
+import pandas as pd
 import mysql.connector
 
 from lib import configs
+from lib.knowledgebase import initialize_knowledge_base, create_kb
 
 def _initialize_db(cursor):
 	"""
@@ -40,10 +42,28 @@ def _initialize_tables(cursor):
 	cursor.execute(query)
 
 	# initialize Information table
-	query = 'CREATE TABLE IF NOT EXISTS information (id INT(255),, content TEXT(65535))'
+	query = 'CREATE TABLE IF NOT EXISTS information (id INT(255), token_1 TEXT(65535), token_2 TEXT(65535), token_3 TEXT(65535), token_4 TEXT(65535), token_5 TEXT(65535), content TEXT(65535))'
 	cursor.execute(query)
 
 	return None
+
+def insert_knowledge_base():
+	"""
+	insert_knolwedge_base - fucntion to insert knowledge base to database
+	Inputs:
+		- input : dict
+			dictionary of TF-ID
+	"""
+	# find files
+	files = [os.path.join(configs.KN_BASE_PATH, file) for file in os.listdir(configs.KN_BASE_PATH)]
+
+	# initialize knowledge base
+	tf_idf, idf, texts = initialize_knowledge_base(files)
+
+	# convert dicitonary to DataFrame
+	kb = create_kb(tf_idf, idf)
+
+	return kb, texts 
 
 def initialize_db():
 	"""
