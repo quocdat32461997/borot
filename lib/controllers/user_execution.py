@@ -27,12 +27,12 @@ def parse_user(first_name, last_name, email):
 	user = User(first_name = first_name, last_name = last_name, email = email)
 
 	# check existing account
-	existed, user_id = _existing_account(db, user)
-	if not existed:
-		user_id = _add_user(db, user)
+	#existed, user_id = _existing_account(db, user)
+	#if not existed:
+	#	user_id = _add_user(db, user)
 		
 	# update User object
-	user.user_id = user_id
+	user.user_id = 1#user_id
 
 	# close db connection
 	db.close()
@@ -52,6 +52,7 @@ def _add_user(db, user):
 	cursor = db.cursor()
 
 	# SQL execution
+	print(user.first_name, user.last_name, user.email)
 	query = 'INSERT INTO users (first_name, last_name, email) VALUES (%s, %s, %s)'
 	values = (user.first_name, user.last_name, user.email)
 	cursor.execute(query, values)
