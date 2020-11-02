@@ -16,5 +16,40 @@ python3 app.py
 ```
 
 ## To talk to Borot, 
-* Make POST request to **/user** endpoint to initalize a new user
-* Make POST request to **/ask** endpoint to talk to Borot 
+* Make POST request to **/user** endpoint to initalize a new user with following data (JSON format only)
+```
+REQUEST:
+{
+	"first_name" : "Donal",
+	"last_name" : "Trump",
+	"email" : "president@us.com"
+}
+RESPONSE:
+"Welcome to Borot"
+```
+* Make POST request to **/ask** endpoint to talk to Borot with the raw query (JSON format only)
+```
+REQUEST:
+{
+	"query" : "How are you"
+}
+RESPONSE:
+{
+    "response": {
+        "Entities": {
+            "geo": [
+                "who"
+            ],
+            "nat": [
+                "am"
+            ],
+            "per": [
+                "i"
+            ]
+        },
+        "Intent": "pto_request_status",
+        "Relevant_info": null
+    },
+    "status_code": 200
+}
+```
