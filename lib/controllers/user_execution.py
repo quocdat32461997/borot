@@ -27,12 +27,12 @@ def parse_user(first_name, last_name, email):
 	user = User(first_name = first_name, last_name = last_name, email = email)
 
 	# check existing account
-	existed, user_id = _existing_account(db, user)
-	if not existed:
-		user_id = _add_user(db, user)
+	#existed, user_id = _existing_account(db, user)
+	#if not existed:
+	#	user_id = _add_user(db, user)
 		
 	# update User object
-	user.user_id = user_id
+	user.user_id = 1#user_id
 
 	# close db connection
 	db.close()

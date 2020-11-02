@@ -8,7 +8,7 @@ import os
 from lib.controllers import connect2db
 from lib.borot_ai import ner, intent_detection, response_generator
 
-def question_answer(USERobj, NERobj, ICobj, query, intents, tags):
+def question_answer(USERobj, NERobj, ICobj, query, intents, tags, kb, db):
 	"""
 	ask - function to provoke Borot agent given text input
 	Inputs:
@@ -24,13 +24,15 @@ def question_answer(USERobj, NERobj, ICobj, query, intents, tags):
 			List of intents
 		- tags : list
 			List of tags
+
+		- kb : pandas DF
+			DataFrame of knowledge base
+		- db : list
+			List of texts
 	Outputs:
 		- output : str
 			Output text (answer/response)
 	"""
-
-	# initialize database
-	db = connect2db()
 
 	# intent detection
 	intent = intent_detection(ICobj, query)
@@ -41,32 +43,38 @@ def question_answer(USERobj, NERobj, ICobj, query, intents, tags):
 	tags = ner_output['tags'].tolist()[0]
 
 	# generate response
-	response = response_generator(intent, tags, query)
+	response = response_generator(intent, tags, text)
 
-	print(response, intent, text, tags)
+	# search knowledge
+	info = _search_info(response['Entities'], kb, db)
+	
+	return {'Intent' : intent, 'Entities' : response['Entities'], 'Relevant_info' : info}
 
-	# close db connection
-	db.close()
-
-	return intent, text, tags
-
-def search_info(input, db):
+def _search_info(input, kb, db):
 	"""
 	search_info - function to search info in Knowledge base given input tokens
 	Inputs:
-		- input : list of str
-			List of key tokens
+		- input : dict
+			Dictionary of entity-key and list of words
+		- kb : Pandas dataframe
+			Dataframe of tokens x documents
+		- db : list
+			List of texts
 	Outputs:
 		- output : TBD
 	"""
+	# retrieva all words
+	words = []
+	for v in input.values():
+		words.extend(v)
 
-	# initialize cursor
-	cursor = db.cursor()
+	# filter out-of-vocab keywords
+	words = [word for word in words if word in kb.columns]
+	print(words)
 
-	# execute search
-	query = None
-	values = None
-	cursor.execute(query, values)
+	if not words:
+		return None
+	# extract 
+	doc = kb.sort_values(by = words, axis = 'index', ascending = False).index[0]
 
-	# reset cursor
-	cursor.reset()
+	return db[doc]
