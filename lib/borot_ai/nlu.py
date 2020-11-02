@@ -67,7 +67,6 @@ def response_generator(intent, tags, tokens):
 
 			else:
 				entities[tag].append(tokens[idx])
-	print(entities, tags, tokens)
 
 	return {'Intent' : intent, 'Entities' : entities}
 
