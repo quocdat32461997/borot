@@ -21,7 +21,7 @@ def parse_user(first_name, last_name, email):
 	"""
 
 	# initialize DB connection
-	db = connect2db()
+	#db = connect2db()
 
 	# function execution
 	user = User(first_name = first_name, last_name = last_name, email = email)
@@ -35,7 +35,7 @@ def parse_user(first_name, last_name, email):
 	user.user_id = 1#user_id
 
 	# close db connection
-	db.close()
+	#db.close()
 
 	return user
 
@@ -49,17 +49,16 @@ def _add_user(db, user):
 	"""
 	
 	# initialize cursor
-	cursor = db.cursor()
+	#cursor = db.cursor()
 
 	# SQL execution
-	print(user.first_name, user.last_name, user.email)
 	query = 'INSERT INTO users (first_name, last_name, email) VALUES (%s, %s, %s)'
 	values = (user.first_name, user.last_name, user.email)
-	cursor.execute(query, values)
+	#cursor.execute(query, values)
 
 	# make permanent changes
-	db.commit()
-	cursor.reset()
+	#db.commit()
+	#cursor.reset()
 
 def _existing_account(db, user):
 	"""
@@ -75,16 +74,16 @@ def _existing_account(db, user):
 	"""
 
 	# initialize cursor
-	cursor = db.cursor()
+	#cursor = db.cursor()
 
 	# SQl execution
 	query = 'SELECT EXISTS(SELECT * FROM users WHERE users.email=\'{}\')'.format(user.email)
-	cursor.execute(query)
+	#cursor.execute(query)
 
 	user_id = cursor.fetchall()[0][-1]
 	
 	# reset db cursor
-	cursor.reset()
+	#cursor.reset()
 
 	if cursor.rowcount == 1:
 		return True, user_id

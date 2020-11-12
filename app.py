@@ -18,9 +18,6 @@ ner, ic, tags, intents = initialize_borot_ai()
 kb, db = insert_knowledge_base()
 
 def main():
-	# initialize database
-	initialize_db()
-
 	# run app
 	app.run(debug = True)
 

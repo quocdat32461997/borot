@@ -5,7 +5,6 @@ agent_execution.py - module for read/write execution
 # import dependencies
 import os
 
-from lib.controllers import connect2db
 from lib.borot_ai import ner, intent_detection, response_generator
 
 def question_answer(USERobj, NERobj, ICobj, query, intents, tags, kb, db):

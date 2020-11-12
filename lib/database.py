@@ -5,7 +5,7 @@ database.py - module to initialize MySQL database.
 # import dependencies
 import os
 import pandas as pd
-import mysql.connector
+#import mysql.connector
 
 from lib import configs
 from lib.knowledgebase import initialize_knowledge_base, create_kb

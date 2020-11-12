@@ -4,7 +4,7 @@ initialization.py - module for Database connections
 
 # import dependencies
 import os
-import mysql.connector
+#import mysql.connector
 
 from lib import configs
 from lib.borot_ai import *
