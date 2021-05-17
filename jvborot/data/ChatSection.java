@@ -2,19 +2,23 @@
 package data;
 
 // import dependencies
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 public class ChatSection {
   /*
   Class ChatSection - manage every chat section that is distinguished by userid, and timestamp.
   */
-  UUID sectionId = null;
-  UUID userId = null;
-  Date timeStamp = null;
+  private UUID sectionId = null;
+  private UUID userId = null;
+  private Date timeStamp = null;
+  private ArrayList<String> texts = null;
 
   public ChatSection (UUID userId) {
+    // create a new section
     createSection(userId = userId);
+
+    // initalize empty array of texts
+    this.texts = new ArrayList<String>();
   }
 
   private boolean createSection(UUID userId) {
@@ -32,5 +36,21 @@ public class ChatSection {
         System.out.println(e);
       }
       return false;
+  }
+
+  public void addText(String text) {
+    this.texts.add(text); // add text
+  }
+
+  public UUID getSectionId () {
+    return this.sectionId;
+  }
+
+  public Date getTimeStamp () {
+    return this.timeStamp;
+  }
+
+  public ArrayList<String> getTexts () {
+    return this.texts;
   }
 }

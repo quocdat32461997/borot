@@ -8,9 +8,9 @@ public class User {
   /*
   Class User -  manage User object
   */
-  String userName = new String();
-  String name = new String();
-  UUID userId = null;
+  private String userName = new String();
+  private String name = new String();
+  private UUID userId = null;
 
   public User(String userName, String name) {
     // register user
@@ -31,5 +31,17 @@ public class User {
     }
 
     return false;
+  }
+
+  public UUID getUserId () {
+    return this.userId;
+  }
+
+  public String getUserName () {
+    return this.userName;
+  }
+
+  public String getName () {
+    return this.name;
   }
 }
