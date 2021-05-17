@@ -3,7 +3,7 @@ import core.DialogueSystem;
 import data.User;
 import data.ChatSection;
 
-public class Borot {
+public class App {
   public static void main(String []args) {
     try {
       // NOTI: start of program
