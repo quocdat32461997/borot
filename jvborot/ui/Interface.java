@@ -2,6 +2,7 @@
 package ui;
 // import dependencies
 import java.util.Scanner;
+import data.ChatSection;
 
 public class Interface {
   Scanner inputObj;

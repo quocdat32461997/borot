@@ -1,6 +1,7 @@
 // import dependencies
 import ui.Interface;
-//.ChatInterface;
+import data.User;
+import data.ChatSection;
 
 public class Borot {
   public static void main(String []args) {
@@ -12,6 +13,11 @@ public class Borot {
       System.out.println("Initializing interface");
       Interface interfaceObj = new Interface();
       System.out.println("Finished initializing interface");
+
+      // NOTI: initialize user
+      User tempUser = new User (
+        "fishsauce40", "Dat Quoc Ngo"
+      );
 
       // running interface
       System.out.println("Interface is running.");
