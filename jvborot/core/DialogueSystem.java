@@ -11,8 +11,9 @@ import nlp.*;
 public class DialogueSystem {
   Scanner inputObj;
   String botText = new String("Hello, I am Borot");
-  String userText = new String();
-  ChatSection chatSection = null;
+  String userText;
+  ChatSection chatSection;
+  QA qaBot;
 
   public DialogueSystem(UUID userId) {
     /*
@@ -24,9 +25,10 @@ public class DialogueSystem {
     */
     this.inputObj = new Scanner(System.in);
     this.chatSection = new ChatSection(userId);
+    this.qaBot = new QA();
   }
 
-  private String botSay () {
+  private void botSay () {
     /*
     botSay - function to ask and reply against users' input
     Args: None
@@ -36,17 +38,12 @@ public class DialogueSystem {
     */
 
     // generate response
-    this.botText = "";
-    // print prompt text
-    System.out.println(this.botText);
-
+    this.botText = qaBot.reply(this.userText);
     // add propt text
     this.chatSection.addText(this.botText);
-
-    return this.botText;
   }
 
-  private String userSay() {
+  private void userSay() {
     /*
     userSay - function to prompt user input
     Args: none
@@ -60,7 +57,8 @@ public class DialogueSystem {
     // add text
     this.chatSection.addText(userText);
 
-    return this.userText;
+    // print prompt text
+    System.out.println(this.botText);
   }
   public void run() {
     /*
